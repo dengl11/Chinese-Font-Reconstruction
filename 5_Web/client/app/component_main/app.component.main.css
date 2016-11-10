@@ -1,0 +1,46 @@
+#t{
+  font-size: 150px;
+}
+
+
+
+.left, .right{
+ width:15%;
+  float: top;
+   height: 100%;
+   display: inline-block;
+}
+
+.left{
+  float: left;
+}
+
+.right{
+  float: right;
+ 
+}
+
+.header{
+  height: 45%;
+}
+
+.header h1{
+  color: white;
+  margin: auto;
+}
+.title{
+  margin-left: 1em;
+}
+.separator{
+  color: #f8f6ea;
+  margin-left: 1em;
+}
+
+.board{
+  width:70%;
+  display: inline-block;
+}
+
+.body_content{
+  padding-top:3%; 
+}

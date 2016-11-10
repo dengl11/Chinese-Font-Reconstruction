@@ -1,4 +1,6 @@
 _data/*
+5_Web/node_modules/*
+5_Web/typings/*
 **/*.gif
 **/fonts/*
 client/**/*.js
