@@ -15,8 +15,6 @@ class TensorflowModel(object):
     init_bias = 0.1
     # loss
     blocks = []
-    keepProb = 0.9
-    learningRate = 0.01
     tv=0.0001
     # train_step
 
@@ -29,6 +27,8 @@ class TensorflowModel(object):
         self.X_img = tf.reshape(self.X, shape = (-1, char_width_px, char_width_px, 1))
         self.y_img = tf.reshape(self.y, shape = (-1, output_width, output_width, 1))
         self.phase_train = tf.placeholder(tf.bool, name='phase_train')
+        self.learning_rate = tf.placeholder(tf.float32, name="learning_rate")
+        self.keepProb = tf.placeholder(tf.float32, name="keepProb")
 
 
 
@@ -82,9 +82,8 @@ class TensorflowModel(object):
 
     def init_train_step(self, dropped_out):
         self.compute_loss(dropped_out)
-         #tf.train.GradientDescentOptimizer(self.learningRate).minimize(self.loss)
-        self.train_step = tf.train.RMSPropOptimizer(self.learningRate).minimize(self.loss)
-
+         #tf.train.GradientDescentOptimizer(self.learning_rate).minimize(self.loss)
+        self.train_step = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss)
 
     def total_variation_loss(self, x, side):
         """

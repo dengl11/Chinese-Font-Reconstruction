@@ -1,16 +1,15 @@
 import tensorflow as tf
 import numpy as np
 import TensorflowModel
-import util
+from util import *
 import os
 import shutil
 
-print "##########################################"
-
+print ("##########################################")
 
 ########################## PARAM ##################################
 # number of characters to be trained
-nChars = 200
+nChars = 240
 # number of characters for each iteration of training
 batch_size = 16
 # numer of iterations
@@ -25,17 +24,18 @@ tgt_font_path = "./_TrainingData/li.npy"
 char_width_px = 160;
 ##################################################################
 
+'''
 # [nCharacter x 160 x 160]
 src_chacters = np.load(src_font_path)
 tgt_chacters = np.load(tgt_font_path)
+'''
 
-# extract real training chars | from now on, training data becomes nChars
-permutation, src_chacters = util.extract_batch(src_chacters, nChars)
-tgt_chacters = tgt_chacters[permutation, :, :]
 
-# normalize
-src_chacters = util.normalize_pix(src_chacters)
-tgt_chacters = util.normalize_pix(tgt_chacters)
+#Initialize FontProvider/FontManager Objects
+source_font = src_font_path
+target_font = tgt_font_path
+split = nChars
+dataset = FontDataManager(source_font, target_font, nChars, split)
 
 # create a session for model
 
@@ -59,26 +59,33 @@ model.session.run(tf.initialize_all_variables())
 
 
 # run training for a batch
-def train_batch(iter):
-    permutation, src_chars = util.extract_batch_in_order(src_chacters, batch_size, iter)
-    tgt_chars = tgt_chacters[permutation, :, :]
+def train_batch(src_chars, tgt_chars):
+    '''
+    if (iter % int(nChars/batch_size)) == 0:
+        FontProvider.getNewPerm(nChars)
+    permutation, src_chars = util.extract_batch_in_order(FontProvider.current_src, batch_size, iter)
+    tgt_chars = FontProvider.current_tgt[permutation, :, :]
+    '''
+
     dic = {
         model.X: src_chars,
         model.y: tgt_chars,
-        model.phase_train: True
+        model.phase_train: True,
+        model.learning_rate: 0.01,
+        model.keepProb: 0.9
     }
-    model.train_step.run(feed_dict = dic )
-    print "Loss : {}".format(model.session.run(model.loss, feed_dict=dic))
-
-
+    model.train_step.run(feed_dict = dic)
+    print("Loss : {}".format(model.session.run(model.loss, feed_dict={model.X: src_chars, model.y: tgt_chars,model.phase_train: False,model.keepProb: 1.0})))
 
 
 for iter in range(nIter):
-    print "\n------------------{}-------------------------".format(iter)
-    train_batch(iter)
+    print ("\n------------------{}-------------------------".format(iter))
+    src_chars, tgt_chars = dataset.next_train_batch(batch_size)
+    train_batch(src_chars, tgt_chars)
     if iter % 10 == 0:
-        bitmap = model.session.run(convert_bitmap, feed_dict = {model.X: src_chacters[0:10,:,:],
-                                                    model.y: tgt_chacters[0:10,:,:],
-                                                    model.phase_train: False
+        bitmap = model.session.run(convert_bitmap, feed_dict = {model.X: src_chars,
+                                                    model.y: tgt_chars,
+                                                    model.phase_train: False,
+                                                    model.keepProb: 1.0
                                                     })
-        print "img save as : {}".format(util.render_fonts_image(bitmap, img_folder, 10, iter))
+        print ("img save as : {}".format(render_fonts_image(bitmap, img_folder, 10, iter)))
