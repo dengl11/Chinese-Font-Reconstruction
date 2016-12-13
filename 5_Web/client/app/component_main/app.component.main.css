@@ -17,16 +17,15 @@
 
 .right{
   float: right;
- 
+
 }
 
-.header{
-  height: 45%;
-}
 
 .header h1{
   color: white;
   margin: auto;
+  padding: 1em;
+  height: 3em;
 }
 .title{
   margin-left: 1em;
@@ -42,5 +41,34 @@
 }
 
 .body_content{
-  padding-top:3%; 
+  padding-top:3%;
+}
+
+
+.card{
+  width: 80%;
+  margin: auto;
+}
+
+.image{
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+}
+
+.sample{
+  width: 110px;
+  height: 110px;
+  display: inline-block;
+  margin: 1em;
+}
+.title{
+  margin-bottom: 1em;
+  width: 100%;
+  text-align: center;
+
+}
+
+.sep{
+  height: 4em;
 }

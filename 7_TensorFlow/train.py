@@ -8,8 +8,8 @@ import shutil
 print ("##########################################")
 
 ########################## PARAM ##################################
-src, tgt = "song", "SoftXing"
-#src, tgt = "song", "li"
+#src, tgt = "song", "SoftXing"
+src, tgt = "song", "li"
 # number of characters to be trained
 nChars = 1000
 # number of characters for each iteration of trainxing
@@ -25,7 +25,7 @@ layers = 3
 #Checkpointing
 num_ckpt = 5
 ckpt_dir = "./model"
-ckpt_steps = 100
+ckpt_steps = 20
 if not os.path.exists(ckpt_dir):
     os.makedirs(ckpt_dir)
 
