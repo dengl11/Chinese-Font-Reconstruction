@@ -15,9 +15,10 @@ K.set_image_dim_ordering('th')
 #load data
 li_all_data = np.load('li.npy')
 song_all_data = np.load('song.npy')
-yh_all_data = np.load('yh.npy')
+#zhuan_all_data = np.load('zhuan.npy')
+zhuan_all_data = np.load('zhuan.npy')
 kai_all_data = np.load('kai.npy')
-xing_all_data = np.load('xing.npy')
+xing_all_data = np.load('SoftXing.npy')
 
 # choose 100 for training from each style, 20 for testing
 num_train = 500
@@ -25,7 +26,7 @@ num_test = 100
 
 X_train = li_all_data[0:num_train,:,:]
 X_train = np.concatenate((X_train,song_all_data[0:num_train,:,:]),axis=0)
-X_train = np.concatenate((X_train,yh_all_data[0:num_train,:,:]),axis=0)
+X_train = np.concatenate((X_train,zhuan_all_data[0:num_train,:,:]),axis=0)
 X_train = np.concatenate((X_train,kai_all_data[0:num_train,:,:]),axis=0)
 X_train = np.concatenate((X_train,xing_all_data[0:num_train,:,:]),axis=0)
 
@@ -37,7 +38,7 @@ y_train = np.concatenate((y_train, 4*np.ones((num_train,1), dtype=int)),axis=0)
 
 X_test = li_all_data[num_train:(num_train + num_test),:,:]
 X_test = np.concatenate((X_test,song_all_data[num_train:(num_train + num_test),:,:]),axis=0)
-X_test = np.concatenate((X_test,yh_all_data[num_train:(num_train + num_test),:,:]),axis=0)
+X_test = np.concatenate((X_test,zhuan_all_data[num_train:(num_train + num_test),:,:]),axis=0)
 X_test = np.concatenate((X_test,kai_all_data[num_train:(num_train + num_test),:,:]),axis=0)
 X_test = np.concatenate((X_test,xing_all_data[num_train:(num_train + num_test),:,:]),axis=0)
 

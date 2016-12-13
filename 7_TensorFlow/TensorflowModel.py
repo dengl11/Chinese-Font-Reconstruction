@@ -1,4 +1,5 @@
 import tensorflow as tf
+import os
 
 
 class TensorflowModel(object):
@@ -17,6 +18,7 @@ class TensorflowModel(object):
     blocks = []
     tv=0.0001
     # train_step
+    summary_dir = "./_Summary"
 
 
     def __init__(self, char_width_px):
@@ -29,6 +31,9 @@ class TensorflowModel(object):
         self.phase_train = tf.placeholder(tf.bool, name='phase_train')
         self.learning_rate = tf.placeholder(tf.float32, name="learning_rate")
         self.keepProb = tf.placeholder(tf.float32, name="keepProb")
+        self.train_writer = tf.train.SummaryWriter(os.path.join(self.summary_dir, 'train'),
+                                              self.session.graph)
+        self.validation_writer = tf.train.SummaryWriter(os.path.join(self.summary_dir, 'validation'))
 
 
 
@@ -52,11 +57,15 @@ class TensorflowModel(object):
         new_block = self.get_conv2D_block(x, shape)
         self.blocks.append(new_block)
 
+    def add_block_group(self, shape, n):
+        for _ in range(n):
+            self.add_block(shape)
+
     def pool(self):
         return tf.nn.max_pool(self.blocks[-1], ksize=[1,2,2,1], strides=[1,2,2,1], padding=self.padding)
 
     def drop_out(self, pooled):
-        return tf.nn.dropout(pooled, keep_prob=self.keepProb)
+        return tf.sigmoid(tf.nn.dropout(pooled, keep_prob=self.keepProb))
 
     def batch_norm(self, x):
         out_filters = x.get_shape()[-1]
@@ -76,9 +85,9 @@ class TensorflowModel(object):
         return normed
 
     def compute_loss(self, dropped_out):
-        y_hat = tf.sigmoid(dropped_out)
-        tv_loss = self.tv * self.total_variation_loss(y_hat, 80) # 80: img width
-        self.loss = tf.reduce_mean(tf.abs(self.y_img-y_hat)) + tv_loss
+        self.tv_loss = self.tv * self.total_variation_loss(dropped_out, 80) # 80: img width
+        self.mae_loss = tf.reduce_mean(tf.abs(self.y_img - dropped_out))
+        self.loss = self.mae_loss + self.tv_loss
 
     def init_train_step(self, dropped_out):
         self.compute_loss(dropped_out)

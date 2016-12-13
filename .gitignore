@@ -2,6 +2,11 @@ _data/*
 5_Web/node_modules/*
 5_Web/typings/*
 **/*.gif
+**/*.png
+**/*.npy
+**/*.ttf
+**/*.pyc
+**/*.rtf
 **/fonts/*
 client/**/*.js
 **/jquery*.js
