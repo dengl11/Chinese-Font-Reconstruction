@@ -9,7 +9,7 @@ print ("##########################################")
 
 ########################## PARAM ##################################
 #src, tgt = "song", "SoftXing"
-src, tgt = "song", "li"
+src, tgt = "song", "kai"
 # number of characters to be trained
 nChars = 1000
 # number of characters for each iteration of trainxing
@@ -20,7 +20,7 @@ learningRate = 0.01
 keepProb = 0.9
 
 # number of layer for each group
-layers = 3
+layers = 2
 
 #Checkpointing
 num_ckpt = 5

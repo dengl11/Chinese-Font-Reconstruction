@@ -32,14 +32,15 @@ def render_fonts_image(x, path, img_per_row):
 
 
 #src, tgt = "song", "li"
-src, tgt = "song", "SoftXing"
+src, tgt = "song", "kai"
 src_font_path = "_SourceData/%s.ttf"%src
 tgt_font_path = "_SourceData/%s.ttf"%tgt
 
 # read from txt file, get a list of characters in UTF8 form
 #validation_chars = get_chars_set('./_Validation/validation_chars_3_line.txt')
 #validation_chars = get_chars_set('./_Validation/fullText.txt')
-validation_chars = get_chars_set('./_Validation/validation_chars.txt')
+validation_chars = get_chars_set('./_Validation/title.txt')
+#validation_chars = get_chars_set('./_Validation/validation_chars.txt')
 train_chars = get_chars_set('./_SourceData/charsets/top_3000_simplified.txt')
 
 # render sample images about source and target fonts
