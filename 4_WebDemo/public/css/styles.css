@@ -10,3 +10,10 @@ body {
   margin: auto;
   padding: 1em 0em;
 }
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('CS229-Caligraphy Reconstruction_files/FontAwesome.otf') format('otf'), /* Super Modern Browsers */
+ 
+ 
+}
