@@ -1,12 +1,110 @@
+#t[_ngcontent-hih-1] {
+		font-size: 150px;
+}
+
+.left[_ngcontent-hih-1],
+.right[_ngcontent-hih-1] {
+		width: 15%;
+		float: top;
+		height: 100%;
+		display: inline-block;
+}
+
+.left[_ngcontent-hih-1] {
+		float: left;
+}
+
+.right[_ngcontent-hih-1] {
+		float: right;
+}
+
+.header[_ngcontent-hih-1] h1[_ngcontent-hih-1] {
+		color: white;
+		margin: auto;
+
+}
+
+.title[_ngcontent-hih-1] {
+		margin-left: 1em;
+}
+
+.separator[_ngcontent-hih-1] {
+		color: #f8f6ea;
+		margin-left: 1em;
+}
+
+.board[_ngcontent-hih-1] {
+		width: 70%;
+		display: inline-block;
+}
+
+.body_content[_ngcontent-hih-1] {
+		padding-top: 3%;
+}
+
+.card[_ngcontent-hih-1] {
+		width: 80%;
+		margin: auto;
+}
+
+.image[_ngcontent-hih-1] {
+		width: 100px;
+		height: 100px;
+		margin: 5px;
+}
+
+.sample[_ngcontent-hih-1] {
+		width: 110px;
+		height: 110px;
+		display: inline-block;
+		margin: 1em;
+}
+
+.title[_ngcontent-hih-1] {
+		margin-bottom: 1em;
+		width: 100%;
+		text-align: center;
+}
+
+.sep[_ngcontent-hih-1] {
+		height: 4em;
+}
+
 body {
 	background: #f4f4f4;
-     width: 100%;
-  padding: 0;
-  margin: 0;
+	width: 100%;
+	padding: 0;
+	margin: 0;
 }
 
 .body_content{
-  width: 94%;
-  margin: auto;
-  padding: 1em 0em;
+	width: 94%;
+	margin: auto;
+	padding: 1em 0em;
+}
+.subtitle{
+	width: 100%;
+	display: block;
+	text-align: center;
+	padding-top: 0.6em;
+	color: #f4f4f4;
+}
+
+.header h1{
+	display: block;
+	text-align: center;
+	padding-bottom: 0.4em;
+}
+
+.header div{
+	width: 100%;
+}
+
+.logo{
+	width: 5em;
+}
+
+.logopanel{
+	margin: auto;
+	text-align: center;
 }
