@@ -3,8 +3,8 @@ _data/*
 5_Web/typings/*
 **/*.gif
 **/*.png
-!docs/*.png
-!docs/*.gif
+!docs/**/*.png
+!docs/**/*.gif
 **/*.npy
 **/*.ttf
 **/*.pyc
