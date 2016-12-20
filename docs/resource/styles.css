@@ -108,3 +108,7 @@ body {
 	margin: auto;
 	text-align: center;
 }
+
+a{
+	color: inherit;
+}
