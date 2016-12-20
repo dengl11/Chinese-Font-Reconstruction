@@ -20,7 +20,7 @@ learningRate = 0.01
 keepProb = 0.9
 
 # number of layer for each group
-layers = 2
+layers = 1
 
 #Checkpointing
 num_ckpt = 5
@@ -106,7 +106,8 @@ def train_batch(src_chars, tgt_chars,iter):
     # RUN TRAINING
     model.train_step.run(feed_dict = dic)
     # CALCULATE TRAINING LOSS
-    #train_summary, train_loss = model.session.run([model.summary,model.loss], feed_dict={model.X: src_chars, model.y: tgt_chars,model.phase_train: False,model.keepProb: 1.0})
+    train_loss = model.session.run(model.loss, feed_dict={model.X: src_chars, model.y: tgt_chars,model.phase_train: False,model.keepProb: 1.0})
+    print train_loss
     # CALCULATE VALIDATION LOSS
     #validation_summary, validation_loss = model.session.run([model.summary, model.loss], feed_dict={model.X: validation_src_chars, model.y: validation_tgt_chars,model.phase_train: False,model.keepProb: 1.0})
     #print("Train Loss : {} | Validation Loss: {}".format(train_loss, validation_loss))
@@ -115,7 +116,6 @@ def train_batch(src_chars, tgt_chars,iter):
 
 
 for iter in range(nIter):
-    print ("\n------------------{}-------------------------".format(iter))
     src_chars, tgt_chars = dataset.next_train_batch(batch_size)
     train_batch(src_chars, tgt_chars,iter)
     if iter % ckpt_steps == 0:
@@ -124,7 +124,6 @@ for iter in range(nIter):
                                                     model.phase_train: False,
                                                     model.keepProb: 1.0
                                                     })
-        print ("img save as : {}".format(render_fonts_image(bitmap, img_folder, 9, iter)))
         ckpt_path = os.path.join(ckpt_dir,"model.ckpt")
         model.saver.save(model.session,ckpt_path,global_step = iter)
 
